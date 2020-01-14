@@ -17,6 +17,8 @@ export interface IEditorProps {
 
   plugins?: string[];
 
+  pluginsOpts?: any;
+
   children?: React.ReactElement<any> | Array<React.ReactElement<any>>;
 
   storageManager?: any;
@@ -52,6 +54,7 @@ const Editor = React.forwardRef(
       height,
       children,
       plugins: propPlugins,
+      pluginsOpts,
     } = props;
 
     const [editor, setEditor] = React.useState<any>(GrapesJS.editors.find((e: any) => {
@@ -92,6 +95,7 @@ const Editor = React.forwardRef(
               presets[presetType],
               ...propPlugins,
             ],
+            pluginsOpts,
           });
           setEditor(newEditor);
           if (onInit) {
@@ -101,7 +105,7 @@ const Editor = React.forwardRef(
         return handleCleanup;
       },
       // tslint:disable-next-line:max-line-length
-      [blockManager, editor, handleCleanup, height, id, onInit, presetType, propPlugins, storageManager, styleManager, width],
+      [blockManager, editor, handleCleanup, height, id, onInit, presetType, propPlugins, pluginsOpts, storageManager, styleManager, width],
     );
 
     return (
@@ -116,6 +120,7 @@ Editor.defaultProps = {
   id: 'grapesjs-react-editor',
   presetType: 'newsletter',
   plugins: [],
+  pluginsOpts: {},
   blocks: [],
   blockManager: {},
   storageManager: {},
